@@ -7,17 +7,16 @@ object Build extends Build {
   val jettyVersion: String = "8.1.7.v20120910"
 
   def sharedSettings = Seq(
-    scalaVersion := "2.11.2",
+    scalaVersion := "2.11.4",
     scalacOptions += "-deprecation",
+    resolvers += "Sonatype Repo" at "http://oss.sonatype.org/content/groups/public/",
     resolvers += "Sonatype OSS Releases" at "http://oss.sonatype.org/content/repositories/releases/",
     libraryDependencies ++= Seq(
-      "im.mange" %% "little-server" % "0.0.1",
       "net.liftweb" %% "lift-webkit" % liftVersion,
       "net.liftmodules" %% "lift-jquery-module_2.6" % "2.8",
-      "org.eclipse.jetty" % "jetty-webapp" % jettyVersion,
-      "org.eclipse.jetty" % "jetty-server" % jettyVersion,
+      "im.mange" %% "little-server" % "0.0.1",
       "ch.qos.logback" % "logback-classic" % "1.0.6",
-      "com.github.agmenc" %% "lijq" % "2.0.0" % "test",
+      "com.github.agmenc" %% "lijq" % "2.0.0",
       "junit" % "junit" % "4.11" % "test",
       "org.scalatest" %% "scalatest" % "2.2.0" % "test"
     ),

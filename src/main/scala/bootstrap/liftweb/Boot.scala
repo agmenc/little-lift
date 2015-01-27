@@ -1,5 +1,6 @@
 package bootstrap.liftweb
 
+import app.pages.{ExampleStaticPage, ExampleCometPage}
 import little.lift.page.Pages
 import net.liftweb.common.{Full, Loggable}
 import net.liftweb.http.{S, Html5Properties, Req, LiftRules}
@@ -14,11 +15,8 @@ class Boot extends Loggable {
 
   def unsafeBoot() {
     Pages(
-      ExampleStatic("index", redirectIfNotLoggedIn, topBar),
-      ExampleComet(topBar),
-      Hogwash(topBar),
-      Login(topBar),
-      Logout(redirectIfNotLoggedIn, topBar)
+      ExampleStaticPage("index", redirectIfNotLoggedIn, topBar),
+      ExampleCometPage(topBar)
     )
 
     LiftRules.sessionInactivityTimeout.default.set(Full(30L))
@@ -27,7 +25,7 @@ class Boot extends Loggable {
     LiftRules.ajaxEnd = Full(() => LiftRules.jsArtifacts.hide("ajax-loader").cmd)
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
     LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent))
-    LiftRules.dispatch.append(Downloads)
+    // LiftRules.dispatch.append(Something that extends RestHelper)
 
     logger.info("Lift has Booted.")
   }

@@ -16,7 +16,7 @@ object Build extends Build {
       "net.liftmodules" %% "lift-jquery-module_2.6" % "2.8",
       "im.mange" %% "little-server" % "0.0.1",
       "ch.qos.logback" % "logback-classic" % "1.0.6",
-      "com.github.agmenc" %% "lijq" % "2.0.0",
+      "com.github.agmenc" %% "lijq" % "2.0.1",
       "junit" % "junit" % "4.11" % "test",
       "org.scalatest" %% "scalatest" % "2.2.0" % "test"
     ),

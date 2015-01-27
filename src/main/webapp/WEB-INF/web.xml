@@ -16,6 +16,6 @@
 
     <context-param>
         <param-name>org.eclipse.jetty.servlet.SessionCookie</param-name>
-        <param-value>REPROBATESESSIONID</param-value>
+        <param-value>EXAMPLESESSIONID</param-value>
     </context-param>
 </web-app>

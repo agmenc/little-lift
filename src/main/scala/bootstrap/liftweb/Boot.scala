@@ -3,8 +3,10 @@ package bootstrap.liftweb
 import app.pages.{ExampleStaticPage, ExampleCometPage}
 import little.lift.page.Pages
 import net.liftweb.common.{Full, Loggable}
-import net.liftweb.http.{S, Html5Properties, Req, LiftRules}
+import net.liftweb.http._
 import net.liftweb.sitemap.Loc.{If, LocGroup}
+import net.liftweb.util.NamedPF
+import net.liftweb.util.TimeHelpers._
 
 class Boot extends Loggable {
   def boot { doOrDie(unsafeBoot) }
@@ -19,13 +21,15 @@ class Boot extends Loggable {
       ExampleCometPage(topBar)
     )
 
-    LiftRules.sessionInactivityTimeout.default.set(Full(30L))
-    LiftRules.addToPackages("web")
-    LiftRules.ajaxStart = Full(() => LiftRules.jsArtifacts.show("ajax-loader").cmd)
-    LiftRules.ajaxEnd = Full(() => LiftRules.jsArtifacts.hide("ajax-loader").cmd)
+    LiftRules.sessionInactivityTimeout.default.set(Full(30 minutes: Long))
+    LiftRules.addToPackages("app")
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
     LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent))
     // LiftRules.dispatch.append(Something that extends RestHelper)
+
+    LiftRules.uriNotFound.prepend(NamedPF("404handler") {
+      case (req, failure) ⇒ NotFoundAsTemplate(ParsePath(List("404"), "html", false, false))
+    })
 
     logger.info("Lift has Booted.")
   }

@@ -5,7 +5,7 @@ import net.liftweb.common.Loggable
 import net.liftweb.http.CometActor
 
 class ExampleCometActor extends CometActor with Loggable {
-  private val rootAgent = new ExampleRootAgent
+  private val rootAgent = new ExampleRootAgent(this)
 
   def render = rootAgent.render
 
